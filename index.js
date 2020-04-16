@@ -7,7 +7,7 @@ var word;
 var WIN = false;
 var LOSE = false;
 var realLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var correct = [];
+var lettersguessed = [];
 
 
 function play() {
@@ -33,7 +33,7 @@ function play() {
         //console.log(ranWord);
         //sets random movie as a new word
         word = new Word(ranWord);
-        word.stringing();
+        console.log(word.stringing());
 
         win(ranWord);
         check(movielist);
@@ -47,20 +47,20 @@ function play() {
         //console.log(ranWord);
         //sets random movie as a new word
         word = new Word(ranWord);
-        word.stringing();
+        console.log(word.stringing());
 
         win(ranWord);
         check(booklist);
     }
 
     function songs() {
-        var songlist = ["Happy", "Hey Jude", "Sweet child O Mine", "Hotel California", "Back In Black"];
+        var songlist = ["Happy", "Hey Jude", "Sweet Child O Mine", "Hotel California", "Back In Black"];
         //calls a random movie from movielist 
         ranWord = newWord(songlist);
         //console.log(ranWord);
         //sets random movie as a new word
         word = new Word(ranWord);
-        word.stringing();
+        console.log(word.stringing());
 
         win(ranWord);
         check(songlist);
@@ -75,6 +75,7 @@ function play() {
                 choices: ["REPLAY", "LEAVE"]
             }).then(function(answer) {
                 if (answer.replay === "REPLAY") {
+                    lettersguessed = [];
                     WIN = false;
                     LOSE = false;
                     guessesLeft = 10;
@@ -97,42 +98,51 @@ function play() {
                             trying = true;
                         }
                     }
-                    for (var t = 0; t < correct.length; t++) {
-                        if (answer.inputLetter === correct[t]) {
+                    for (var t = 0; t < lettersguessed.length; t++) {
+                        if (answer.inputLetter === lettersguessed[t]) {
                             num++;
                         }
                     }
                     if (trying && num === 0) {
                         word.guessing(answer.inputLetter);
-                        word.stringing();
-                        correct.push(answer.inputLetter);
+                        console.log(word.stringing());
+                        lettersguessed.push(answer.inputLetter);
                         win(word);
                         check();
                     } else if (trying && num !== 0) {
                         console.log("sorry you already guessed that!")
-                        word.stringing();
+                        console.log(word.stringing());
                         check();
                     } else {
-                        console.log("sorry wrong answer !")
                         lose();
-                        guessesLeft--;
-                        console.log("Guesses Left: " + guessesLeft);
-                        word.stringing();
+                        if (guessesLeft > 0) {
+                            lettersguessed.push(answer.inputLetter);
+                            console.log("sorry wrong answer !")
+                            console.log("Guesses Left: " + guessesLeft);
+                            console.log(word.stringing());
+                        }
                         check();
                     }
 
                 } else {
                     console.log("Sorry please enter a letter!");
-                    guessesLeft--;
-                    word.stringing();
-                    lose();
+                    console.log(word.stringing());
                     check();
                 }
             })
         }
     }
 
-    function win(word) {
+    function win() {
+        var temp = word.stringing();
+        var tempAray = ranWord.split("");
+        var complete = tempAray.join(" ");
+        complete += " ";
+        if (complete === temp) {
+
+            WIN = true;
+            console.log("Congrats you WON!");
+        }
         // currently no way of winning
         // It would be something along the lines of comparing all the correctguesses in the correct array
         // to the ranWord variable.
@@ -152,8 +162,10 @@ function play() {
     }
 
     function lose() {
-        if (guessesLeft === 1) {
+        guessesLeft--;
+        if (guessesLeft === 0) {
             LOSE = true;
+            console.log("Better luck next time!");
         }
     }
 

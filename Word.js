@@ -15,7 +15,7 @@ var Word = function(answer) {
             var temp = this.objArray[i];
             string += temp.toString() + " ";
         }
-        console.log(string);
+        return string;
     }
 
     this.guessing = function(guess) {
