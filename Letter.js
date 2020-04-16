@@ -1,10 +1,9 @@
 var letter = function(value) {
-    this.word = value;
+    this.letter = value;
     this.guess = false;
-
-    this.compare = function(character) {
+    //console.log(this.guess);
+    this.toString = function() {
         if (this.letter === " ") {
-            this.guess = true;
             return " ";
         } else {
             if (this.guess === false) {
@@ -15,8 +14,8 @@ var letter = function(value) {
         }
     }
 
-    this.guessed = function(guess) {
-        if (guess === this.letter) {
+    this.compare = function(guess) {
+        if (guess.toLowerCase() === this.letter.toLowerCase()) {
             this.guess = true;
         }
     }
