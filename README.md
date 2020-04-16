@@ -10,17 +10,21 @@ functions
 
  **Photos**
 
+ * Choosing a genre: 
+
+ ![starting Game screenshot](openingScreenshot.png)
+
  * Movies genre in action: 
 
- ![Guessing Game screenshot 1]()
+ ![Guessing Game screenshot 1](MovieScreenshot.png)
 
  * Books genre in action:
 
- ![Guessing Game screenshot 2]()
+ ![Guessing Game screenshot 2](BookScreenshot.png)
 
  * Songs genre in action:
 
- ![Guessing Game screenshot 3]()
+ ![Guessing Game screenshot 3](SongScreenshot.png)
 
  **NPM(s) required**
  * inquirer

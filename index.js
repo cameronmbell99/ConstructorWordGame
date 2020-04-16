@@ -30,7 +30,7 @@ function play() {
         var movielist = ["The Godfather", "The Dark Knight", "Star Wars A New Hope", "Raiders of the Lost Ark", "Titanic"];
         //calls a random movie from movielist 
         ranWord = newWord(movielist);
-        console.log(ranWord);
+        //console.log(ranWord);
         //sets random movie as a new word
         word = new Word(ranWord);
         word.stringing();
@@ -75,6 +75,9 @@ function play() {
                 choices: ["REPLAY", "LEAVE"]
             }).then(function(answer) {
                 if (answer.replay === "REPLAY") {
+                    WIN = false;
+                    LOSE = false;
+                    guessesLeft = 10;
                     play();
                 } else {
                     return
